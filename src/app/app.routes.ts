@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 /**
  * Every route below is EMPTY for now — a placeholder object with just
@@ -13,10 +14,10 @@ export const routes: Routes = [
   { path: 'register', title: 'Create account', loadComponent: () => import('./features/auth/register/register').then(m => m.Register) },
   { path: 'products', title: 'Shop', loadComponent: () => import('./features/catalog/product-list/product-list').then(m => m.ProductList) },
   { path: 'products/:id', title: 'Product', loadComponent: () => import('./features/catalog/product-detail/product-detail').then(m => m.ProductDetail) },
-  { path: 'cart', title: 'Cart', loadComponent: () => import('./features/cart/cart-page/cart-page').then(m => m.CartPage) },
-  { path: 'checkout', title: 'Checkout', loadComponent: () => import('./features/checkout/checkout-page/checkout-page').then(m => m.CheckoutPage) },
-  { path: 'orders', title: 'Your orders', loadComponent: () => import('./features/orders/order-list/order-list').then(m => m.OrderList) },
-  { path: 'orders/:id', title: 'Order details', loadComponent: () => import('./features/orders/order-detail/order-detail').then(m => m.OrderDetail) },
+  { path: 'cart', title: 'Cart', canActivate:[authGuard], loadComponent: () => import('./features/cart/cart-page/cart-page').then(m => m.CartPage) },
+  { path: 'checkout', title: 'Checkout', canActivate:[authGuard], loadComponent: () => import('./features/checkout/checkout-page/checkout-page').then(m => m.CheckoutPage) },
+  { path: 'orders', title: 'Your orders', canActivate:[authGuard], loadComponent: () => import('./features/orders/order-list/order-list').then(m => m.OrderList) },
+  { path: 'orders/:id', title: 'Order details',canActivate:[authGuard], loadComponent: () => import('./features/orders/order-detail/order-detail').then(m => m.OrderDetail) },
   { path: '**', redirectTo: 'products' },
 ];
 

@@ -4,6 +4,8 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { authInterceptors } from './core/interceptors/auth.interceptor';
+import { errorInterceptor } from './core/interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,7 +32,7 @@ export const appConfig: ApplicationConfig = {
     // functions, not injectable classes implementing HttpInterceptor
     // — the class-based approach still works but functional is the
     // current idiomatic style) — order matters, explained below.
-    // provideHttpClient(withFetch(), withInterceptors([authInterceptor, errorInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptors, errorInterceptor])),
 
     provideAnimationsAsync(),
   
