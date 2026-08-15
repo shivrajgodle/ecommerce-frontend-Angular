@@ -1,13 +1,13 @@
-import { Component, input, model } from '@angular/core';
+import { Component, input, model, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-input',
   imports: [],
   templateUrl: './input.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './input.scss',
 })
 export class Input {
-
   label = input('');
   type = input<'text' | 'email' | 'password' | 'number'>('text');
   placeholder = input('');
@@ -31,5 +31,4 @@ export class Input {
   value = model('');
 
   inputId = () => `input-${Math.random().toString(36).slice(2, 9)}`;
-
 }

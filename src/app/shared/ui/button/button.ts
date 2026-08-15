@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, input, output, ChangeDetectionStrategy } from '@angular/core';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 export type ButtonSize = 'sm' | 'md' | 'lg';
@@ -7,10 +7,10 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
   selector: 'app-button',
   imports: [],
   templateUrl: './button.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './button.scss',
 })
 export class Button {
-
   // input() replaces @Input() — the result IS a signal, readable in
   // both the template (variant()) and TypeScript code the same way.
   // No more separate "property vs. how Angular sees it" distinction
@@ -31,10 +31,10 @@ export class Button {
   // detection pass, because computed() is itself signal-aware: it
   // knows precisely when it's stale, rather than being re-invoked
   // speculatively.
-  classes = computed(()=> `size-${this.size()} variant-${this.variant()}`);
+  classes = computed(() => `size-${this.size()} variant-${this.variant()}`);
 
   handleClick() {
-    if(!this.disabled() && !this.loading()) {
+    if (!this.disabled() && !this.loading()) {
       this.clicked.emit();
     }
   }
