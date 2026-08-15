@@ -1,1 +1,89 @@
 /* You can add global styles to this file, and also import other style files */
+// ============================================================
+// DESIGN TOKENS — every color, font, spacing, and radius value
+// used anywhere in this app is defined here, ONCE, as a CSS custom
+// property. No component should ever hardcode a hex color or a
+// pixel value directly — it references a token instead. This is
+// what makes a coherent, deliberate visual identity possible across
+// dozens of components built independently, phase by phase, without
+// them slowly drifting into inconsistent ad-hoc styling.
+// ============================================================
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap');
+
+::root {
+  // — Color —
+  --color-ink: #211d18;           // primary text — warm near-black, not pure #000
+  --color-ink-soft: #5c5650;      // secondary text
+  --color-paper: #faf6f0;         // page background — warm ivory, not stark white
+  --color-surface: #ffffff;       // card/panel background
+  --color-border: #e7e0d6;
+
+  --color-accent: #b3552c;        // terracotta — primary actions, links, focus
+  --color-accent-hover: #9a4623;
+  --color-accent-soft: #f3e3da;   // tinted backgrounds (badges, selected states)
+
+  --color-success: #2f4a3c;       // deep forest green — confirmed orders, success states
+  --color-success-soft: #e2ece5;
+  --color-danger: #a43333;
+  --color-danger-soft: #f6e3e1;
+
+    // — Typography —
+  --font-display: 'Fraunces', serif;   // headings — gives the storefront an editorial, non-generic feel
+  --font-body: 'Public Sans', sans-serif;
+
+  // — Spacing scale — every margin/padding in the app pulls from
+  // this scale rather than inventing arbitrary values, so spacing
+  // stays visually consistent across every component.
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+   --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --shadow-sm: 0 1px 2px rgba(33, 29, 24, 0.06);
+  --shadow-md: 0 4px 16px rgba(33, 29, 24, 0.08);
+  --shadow-lg: 0 12px 32px rgba(33, 29, 24, 0.12)
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1 , h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0 0 var(--space-4) 0;
+    color: var(--color-ink);
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+// Visible, deliberate focus states — never remove outline: none
+// without replacing it with something equally visible. Accessibility
+// isn't a polish step tacked on at the end; it's a token decision
+// made once, here, and inherited everywhere.
+:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
