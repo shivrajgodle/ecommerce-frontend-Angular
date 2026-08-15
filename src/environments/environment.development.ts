@@ -4,4 +4,4 @@ export const environment = {
   // NEVER talks to Identity/Catalog/Cart/etc. directly. This one URL
   // is the entire frontend's view of the backend, exactly as designed.
   apiUrl: 'http://localhost:8080',
-}
+};
