@@ -41,6 +41,7 @@ export class AuthStore {
     const response = await firstValueFrom(
       this.http.post<ApiResponse<AuthResponse>>(`${environment.apiUrl}/api/v1/auth/login`, request),
     );
+    console.log("response is:-",response)
     this.applyAuthResponse(response.data);
   }
 

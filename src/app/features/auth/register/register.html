@@ -1,49 +1,14 @@
 <div class="auth-page">
-      <app-card [padded]="true" class="auth-card">
+    <app-card [padded]="true" class="auth-card">
         <h1>Create your account</h1>
         <form (submit)="handleSubmit($event)">
-          <div class="field-group">
-            <label>Full name</label>
-            <input type="text" [value]="registerForm.fullName" />
-            @let nameField = registerForm.fullName();
-            @if (nameField.touched() && nameField.errors().length > 0) {
-              <p class="error-text">{{ nameField.errors()[0].message }}</p>
-            }
-          </div>
-
-          <div class="field-group">
-            <label>Email</label>
-            <input type="email" [value]="registerForm.email" />
-            @let emailField = registerForm.email();
-            @if (emailField.touched() && emailField.errors().length > 0) {
-              <p class="error-text">{{ emailField.errors()[0].message }}</p>
-            }
-          </div>
-
-          <div class="field-group">
-            <label>Password</label>
-            <input type="password" [value]="registerForm.password" />
-            @let passwordField = registerForm.password();
-            @if (passwordField.touched() && passwordField.errors().length > 0) {
-              <p class="error-text">{{ passwordField.errors()[0].message }}</p>
-            }
-            <!--
-              Deliberately NOT enforcing a client-side minimum length
-              here. required()/email() are rock-solid, well-documented
-              Signal Forms validators; the exact custom-validator API
-              for something like "at least 8 characters" is part of
-              the surface still actively settling post-stabilization,
-              and I'd rather give you a pattern I'm certain is correct
-              than guess. The backend's existing @Size(min = 8)
-              validation (Phase C, File 3c) is still the actual source
-              of truth here — a too-short password gets rejected on
-              submit and surfaces cleanly via the toast, same as any
-              other backend validation error in this app.
-            -->
-          </div>
-
-          <app-button type="submit" [loading]="submitting()">Create account</app-button>
+            <app-input label="Full name" type="text" [required]="true" [(value)]="fullName"
+                [errorMessage]="fullNameError()" />
+            <app-input label="Email" type="email" [required]="true" [(value)]="email" [errorMessage]="emailError()" />
+            <app-input label="Password" type="password" [required]="true" [(value)]="password"
+                [errorMessage]="passwordError()" />
+            <app-button type="submit" [loading]="submitting()">Create account</app-button>
         </form>
         <p class="switch-link">Already have an account? <a routerLink="/login">Sign in</a></p>
-      </app-card>
-    </div>
+    </app-card>
+</div>

@@ -1,27 +1,23 @@
 <div class="auth-page">
-    <app-card [padded]="true" class="auth-card">
-        <h1>Welcome back</h1>
-        <form (submit)="handleSubmit($event)">
-            <div class="field-group">
-                <label>Email</label>
-                <input type="email" [value]="loginForm.email" />
-                @let emailField = loginForm.email();
-                @if(emailField.touched() && emailField.errors().length > 0) {
-                <p class="error-text">{{emailField.errors()[0].message}}</p>
-                }
-            </div>
-
-            <div class="field-group">
-                <label>Password</label>
-                <input type="password" [value]="loginForm.password" />
-                @let passwordField = loginForm.password();
-                @if (passwordField.touched() && passwordField.errors().length > 0) {
-                <p class="error-text">{{ passwordField.errors()[0].message }}</p>
-                }
-            </div>
-
-            <app-button type="submit" [loading]="submitting()">Sign in</app-button>
-        </form>
-        <p class="switch-link">New here? <a routerLink="/register">Create an account</a></p>
-    </app-card>
+  <app-card [padded]="true" class="auth-card">
+    <h1>Welcome back</h1>
+    <form (submit)="handleSubmit($event)">
+      <app-input
+        label="Email"
+        type="email"
+        [required]="true"
+        [(value)]="email"
+        [errorMessage]="emailError()"
+      />
+      <app-input
+        label="Password"
+        type="password"
+        [required]="true"
+        [(value)]="password"
+        [errorMessage]="passwordError()"
+      />
+      <app-button type="submit" [loading]="submitting()">Sign in</app-button>
+    </form>
+    <p class="switch-link">New here? <a routerLink="/register">Create an account</a></p>
+  </app-card>
 </div>
