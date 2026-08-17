@@ -1,15 +1,17 @@
 import { httpResource } from '@angular/common/http';
-import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, inject, signal } from '@angular/core';
 import { ApiResponse } from '../../../core/models/api-response.model';
 import { Product } from '../../../core/models/product.model';
 import { environment } from '../../../../environments/environment.development';
 import { Spinner } from "../../../shared/ui/spinner/spinner";
 import { Card } from "../../../shared/ui/card/card";
 import { CurrencyPipe } from '@angular/common';
+import { CartStore } from '../../../core/services/cart.store';
+import { Button } from "../../../shared/ui/button/button";
 
 @Component({
   selector: 'app-product-detail',
-  imports: [Spinner, Card, CurrencyPipe],
+  imports: [Spinner, Card, CurrencyPipe, Button],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.scss',
 })
@@ -22,6 +24,11 @@ export class ProductDetail {
    * exactly like any other input() would.
    */
   id = input.required<string>();
+
+  private cartStore = inject(CartStore);
+
+  protected quantity = signal(1);
+  protected adding = signal(false);
 
   /**
    * ⚠️ NOTE THE TYPE HERE: ApiResponse<Product>, NOT Product directly
@@ -42,4 +49,23 @@ export class ProductDetail {
   // a plain Product | undefined — the ApiResponse wrapper is an
   // HTTP-layer concern that shouldn't leak into the template itself.
   protected product = computed(() => this.productResource.value()?.data);
+
+  incrementQty(){
+    this.quantity.update((q) => q + 1);
+  }
+
+  decrementQty(){
+    this.quantity.update((q) => Math.max(1, q - 1));
+  }
+
+  async addToCart(productId:number){
+    this.adding.set(true);
+    try{
+      await this.cartStore.addItem(productId, this.quantity());
+      this.quantity.set(1); // reset the stepper after a successful add — a small but real UX nicety
+    } finally {
+      this.adding.set(false);
+    }
+  }
+
 }

@@ -1,5 +1,5 @@
 import { httpResource } from '@angular/common/http';
-import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, computed, inject } from '@angular/core';
 import { PageResponse } from '../../../core/models/page.model';
 import { Product } from '../../../core/models/product.model';
 import { environment } from '../../../../environments/environment.development';
@@ -8,6 +8,8 @@ import { Spinner } from "../../../shared/ui/spinner/spinner";
 import { Card } from "../../../shared/ui/card/card";
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { Button } from '../../../shared/ui/button/button';
+import { CartStore } from '../../../core/services/cart.store';
 
 const PAGE_SIZE = 12;
 
@@ -19,11 +21,15 @@ const PAGE_SIZE = 12;
 }
 @Component({
   selector: 'app-product-list',
-  imports: [Spinner, Card, RouterLink, CurrencyPipe],
+  imports: [Spinner, Card, RouterLink, CurrencyPipe, Button],
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss',
 })
 export class ProductList {
+
+  private cartStore = inject(CartStore);
+  protected addingProductId = signal<number | null>(null);
+
   // The RAW text box value, updated on every keystroke.
   protected keywordInput = signal('');
 
@@ -41,6 +47,7 @@ export class ProductList {
   protected minPrice = signal<number | null>(null);
   protected maxPrice = signal<number | null>(null);
   protected page = signal(0);
+
 
   onKeywordInput(value: string) {
     this.keywordInput.set(value);
@@ -103,4 +110,19 @@ export class ProductList {
 
   protected totalPages = computed(() => this.productsResource.value()?.totalPages ?? 1);
   protected isLastPage = computed(() => this.productsResource.value()?.last ?? true);
+
+  async quickAdd(productId: number){
+    // The card is wrapped in a routerLink <a> — without stopping
+    // propagation, clicking "Add to cart" would ALSO trigger
+    // navigation to the product detail page, since the click event
+    // bubbles up to the anchor. stopPropagation() is handled in the
+    // template via (click) handler on the button element.
+
+    this.addingProductId.set(productId);
+    try{
+      await this.cartStore.addItem(productId,1);
+    } finally{
+      this.addingProductId.set(null);
+    }
+  }
 }

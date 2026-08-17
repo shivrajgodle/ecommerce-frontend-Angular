@@ -46,16 +46,23 @@
             @default {
                 <div class="product-grid">
                     @for (product of productsResource.value()?.content; track product.id) {
-                    <a [routerLink]="['/products', product.id]" class="product-link">
-                        <app-card [interactive]="true" class="product-card">
-                            <span class="category-badge">{{ product.categoryName }}</span>
-                            <h3>{{ product.name }}</h3>
-                            <p class="price">{{ product.price | currency }}</p>
-                            @if (product.stockQuantity === 0) {
-                                <span class="out-of-stock">Out of stock</span>
-                            }
-                        </app-card>
-                    </a>
+                        <a [routerLink]="['/products', product.id]" class="product-link">
+                            <app-card [interactive]="true" class="product-card">
+                                <span class="category-badge">{{ product.categoryName }}</span>
+                                <h3>{{ product.name }}</h3>
+                                <p class="price">{{ product.price | currency }}</p>
+                                @if (product.stockQuantity === 0) {
+                                    <span class="out-of-stock">Out of stock</span>
+                                } @else {
+                                    <app-button
+                                        size="sm"
+                                        variant="secondary"
+                                        [loading]="addingProductId() === product.id"
+                                        (click)="$event.stopPropagation()"
+                                        (clicked)="quickAdd(product.id)">Add to cart</app-button>
+                                }
+                            </app-card>
+                        </a>
                     }
                 </div>
 
