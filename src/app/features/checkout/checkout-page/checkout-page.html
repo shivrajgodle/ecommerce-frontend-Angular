@@ -1,1 +1,59 @@
-<p>checkout-page works!</p>
+<div class="checkout-page">
+    <h1>Checkout</h1>
+
+    <div class="checkout-layout">
+        <app-card [padded]="true" class="address-card">
+            <h2>Shipping address</h2>
+            <form (submit)="handleSubmit($event)">
+                <div class="field-group">
+                    <label>Street</label>
+                    <input type="text" [formField]="addressForm.street" />
+                        @let streetField = addressForm.street();
+                        @if (streetField.touched() && streetField.errors().length > 0) {
+                            <p class="error-text">{{ streetField.errors()[0].message }}</p>
+                        }
+                </div>
+
+                <div class="field-row">
+                    <div class="field-group">
+                        <label>City</label>
+                        <input type="text" [formField]="addressForm.city" />
+                    </div>
+                    <div class="field-group">
+                        <label>State</label>
+                        <input type="text" [formField]="addressForm.state" />
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field-group">
+                        <label>ZIP code</label>
+                        <input type="text" [formField]="addressForm.zipCode" />
+                    </div>
+                    <div class="field-group">
+                        <label>Country</label>
+                        <input type="text" [formField]="addressForm.country" />
+                    </div>
+                </div>
+
+                <app-button type="submit" size="lg" [loading]="placingOrder()">
+                    Place order — {{ cartStore.cart()?.cartTotal | currency }}
+                </app-button>
+            </form>
+        </app-card>
+
+        <app-card [padded]="true" class="summary-card">
+            <h2>Order summary</h2>
+            @for (item of cartStore.cart()?.items; track item.id) {
+            <div class="summary-line">
+                <span>{{ item.productName }} × {{ item.quantity }}</span>
+                <span>{{ item.subtotal | currency }}</span>
+            </div>
+            }
+            <div class="summary-line total">
+                <span>Total</span>
+                <span>{{ cartStore.cart()?.cartTotal | currency }}</span>
+            </div>
+        </app-card>
+    </div>
+</div>
