@@ -2,10 +2,11 @@ import { Component, signal, ChangeDetectionStrategy, inject } from '@angular/cor
 import { RouterOutlet } from '@angular/router';
 import { ToastComponent } from "./shared/ui/toast/toast.component";
 import { CartStore } from './core/services/cart.store';
+import { HeaderComponent } from "./shared/layout/header/header.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ToastComponent],
+  imports: [RouterOutlet, ToastComponent, HeaderComponent],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.scss',
