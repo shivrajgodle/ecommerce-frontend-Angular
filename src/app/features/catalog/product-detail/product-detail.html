@@ -1,1 +1,32 @@
-<p>product-detail works!</p>
+@if (productResource.isLoading()) {
+    <div class="state-message"><app-spinner /></div>
+} @else if (productResource.error()) {
+    <div class="state-message error">This product couldn't be found.</div>
+} @else if (product(); as p) {
+    <div class="detail-page">
+        <app-card [padded]="true" class="detail-card">
+            <span class="category-badge">{{ p.categoryName }}</span>
+            <h1>{{ p.name }}</h1>
+            <p class="price">{{ p.price | currency }}</p>
+            <p class="description">{{ p.description }}</p>
+
+            @if (p.tags.length > 0) {
+                <div class="tags">
+                    @for (tag of p.tags; track tag) {
+                    <span class="tag">{{ tag }}</span>
+                    }
+                </div>
+            }
+
+            @if (p.stockQuantity === 0) {
+                <p class="out-of-stock">Out of stock</p>
+            } @else {
+                <p class="stock">{{ p.stockQuantity }} in stock</p>
+                <!-- "Add to cart" wiring lands in Phase 4, once CartStore
+                        exists — deliberately not stubbing a non-functional
+                        button here in the meantime. -->
+            }
+        </app-card>
+
+    </div>
+}

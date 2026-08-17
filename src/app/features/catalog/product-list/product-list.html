@@ -1,1 +1,70 @@
-<p>product-list works!</p>
+<div class="catalog-page">
+    <aside class="filters">
+        <h2>Filters</h2>
+
+        <div class="filter-group">
+            <label>Search</label>
+            <input type="text" placeholder="Search products…" [value]="keywordInput()"
+                (input)="onKeywordInput($any($event.target).value)" />
+        </div>
+
+        <div class="filter-group">
+            <label>Category</label>
+            <select [value]="categoryId() ?? ''" (change)="onCategoryChange($any($event.target).value)">
+                <option value="">All categories</option>
+               @if(categoriesResource.hasValue()) {
+                    @for(category of categoriesResource.value()?.data; track category.id) {
+                        <option [value]="category.id">{{ category.name }}</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Price range</label>
+            <div class="price-inputs">
+                <input type="number" placeholder="Min" [value]="minPrice() ?? ''"
+                    (change)="onMinPriceChange($any($event.target).value)" />
+                <span>–</span>
+                <input type="number" placeholder="Max" [value]="maxPrice() ?? ''"
+                    (change)="onMaxPriceChange($any($event.target).value)" />
+            </div>
+        </div>
+    </aside>
+
+    <main class="results">
+        @switch (true) {
+            @case (productsResource.isLoading()) {
+                <div class="state-message"><app-spinner /></div>
+            }
+            @case (!!productsResource.error()) {
+                <div class="state-message error">Couldn't load products right now. Please try again.</div>
+            }
+            @case (productsResource.hasValue() && productsResource.value()!.content.length === 0) {
+                <div class="state-message">No products match your filters.</div>
+            }
+            @default {
+                <div class="product-grid">
+                    @for (product of productsResource.value()?.content; track product.id) {
+                    <a [routerLink]="['/products', product.id]" class="product-link">
+                        <app-card [interactive]="true" class="product-card">
+                            <span class="category-badge">{{ product.categoryName }}</span>
+                            <h3>{{ product.name }}</h3>
+                            <p class="price">{{ product.price | currency }}</p>
+                            @if (product.stockQuantity === 0) {
+                                <span class="out-of-stock">Out of stock</span>
+                            }
+                        </app-card>
+                    </a>
+                    }
+                </div>
+
+                <div class="pagination">
+                    <button [disabled]="page() === 0" (click)="page.set(page() - 1)">← Previous</button>
+                    <span>Page {{ page() + 1 }} of {{ totalPages() }}</span>
+                    <button [disabled]="isLastPage()" (click)="page.set(page() + 1)">Next →</button>
+                </div>
+            }
+        }
+    </main>
+</div>

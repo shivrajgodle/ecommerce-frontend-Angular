@@ -13,7 +13,6 @@ interface LoginFormModel {
   selector: 'app-login',
   imports: [RouterLink, Button, Card, Input],
   templateUrl: './login.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './login.scss',
 })
 export class Login {

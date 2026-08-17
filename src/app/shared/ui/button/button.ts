@@ -7,7 +7,6 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
   selector: 'app-button',
   imports: [],
   templateUrl: './button.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './button.scss',
 })
 export class Button {

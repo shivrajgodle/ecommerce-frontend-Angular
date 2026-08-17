@@ -15,7 +15,6 @@ interface RegisterFormModel {
   selector: 'app-register',
   imports: [RouterLink, Button, Card, Input],
   templateUrl: './register.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './register.scss',
 })
 export class Register {

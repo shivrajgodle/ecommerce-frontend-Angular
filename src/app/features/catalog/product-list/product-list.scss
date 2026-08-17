@@ -1,0 +1,126 @@
+.catalog-page {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: var(--space-8);
+    padding: var(--space-8) var(--space-6);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.filter-group label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+input,
+select {
+    font-family: var(--font-body);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+}
+
+.price-inputs {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.price-inputs input {
+    width: 80px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-6);
+}
+
+.product-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    height: 100%;
+}
+
+.category-badge {
+    align-self: flex-start;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-accent);
+    background: var(--color-accent-soft);
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
+}
+
+.product-card h3 {
+    font-size: 1.0625rem;
+    margin: 0;
+}
+
+.price {
+    font-weight: 600;
+    color: var(--color-ink);
+    margin: 0;
+}
+
+.out-of-stock {
+    font-size: 0.8125rem;
+    color: var(--color-danger);
+}
+
+.state-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-16) 0;
+    color: var(--color-ink-soft);
+}
+
+.state-message.error {
+    color: var(--color-danger);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+}
+
+.pagination button {
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    cursor: pointer;
+
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+}

@@ -1,0 +1,72 @@
+.detail-page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-6);
+}
+
+.detail-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.category-badge {
+    align-self: flex-start;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-accent);
+    background: var(--color-accent-soft);
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
+}
+
+h1 {
+    margin: 0;
+}
+
+.price {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.description {
+    color: var(--color-ink-soft);
+    line-height: 1.6;
+}
+
+.tags {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.tag {
+    font-size: 0.8125rem;
+    background: var(--color-paper);
+    border: 1px solid var(--color-border);
+    padding: 2px var(--space-3);
+    border-radius: 999px;
+}
+
+.stock {
+    font-size: 0.875rem;
+    color: var(--color-success);
+}
+
+.out-of-stock {
+    font-size: 0.875rem;
+    color: var(--color-danger);
+}
+
+.state-message {
+    display: flex;
+    justify-content: center;
+    padding: var(--space-16) 0;
+}
+
+.state-message.error {
+    color: var(--color-danger);
+}

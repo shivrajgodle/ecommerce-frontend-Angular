@@ -4,7 +4,6 @@ import { Component, input, model, ChangeDetectionStrategy } from '@angular/core'
   selector: 'app-input',
   imports: [],
   templateUrl: './input.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './input.scss',
 })
 export class Input {
