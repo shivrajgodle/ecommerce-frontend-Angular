@@ -1,1 +1,56 @@
-<p>review-section works!</p>
+<section class="review-section">
+    <div class="summary-row">
+        <h2>Reviews</h2>
+        @if (summary(); as s) {
+        <div class="summary-inline">
+            <app-star-rating [value]="roundedAverage()" [readonly]="true" />
+            <span>
+                {{ s.averageRating.toFixed(1) }} 
+                ({{ s.reviewCount }} review{{ s.reviewCount === 1 ? '' : 's'}})
+            </span>
+        </div>
+        }
+    </div>
+
+    @if (authStore.isAuthenticated() && !showForm()) {
+        <app-button variant="secondary" size="sm" (clicked)="startReview()">
+            {{ ownReview() ? 'Edit your review' : 'Write a review' }}
+        </app-button>
+    }
+
+    @if (showForm()) {
+        <app-card [padded]="true" class="review-form">
+            <label>Your rating</label>
+            <app-star-rating [(value)]="formRating" [readonly]="false" />
+            <label>Comment (optional)</label>
+            <textarea [value]="formComment()" (input)="formComment.set($any($event.target).value)" rows="3"></textarea>
+            <div class="form-actions">
+                <app-button size="sm" [loading]="submitting()" (clicked)="submitReview()">
+                    {{ ownReview() ? 'Update review' : 'Post review' }}
+                </app-button>
+                <app-button size="sm" variant="ghost" (clicked)="showForm.set(false)">Cancel</app-button>
+            </div>
+        </app-card>
+    }
+
+    @if (reviewsResource.value()?.content?.length === 0) {
+        <p class="no-reviews">No reviews yet — be the first to share your thoughts.</p>
+    } @else {
+        <div class="review-list">
+            @for (review of reviewsResource.value()?.content; track review.id) {
+                <div class="review-item">
+                    <div class="review-header">
+                        <app-star-rating [value]="review.rating" [readonly]="true" />
+                        <span class="review-date">{{ review.createdDate | date: 'mediumDate' }}</span>
+                        @if (canDelete(review)) {
+                            <button class="delete-link" (click)="deleteReview(review.id)">Delete</button>
+                        }
+                    </div>
+                    @if (review.comment) {
+                        <p class="review-comment">{{ review.comment }}</p>
+                    }
+                </div>
+            }
+        </div>
+    }
+</section>

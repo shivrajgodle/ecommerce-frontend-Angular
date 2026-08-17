@@ -8,10 +8,11 @@ import { Card } from "../../../shared/ui/card/card";
 import { CurrencyPipe } from '@angular/common';
 import { CartStore } from '../../../core/services/cart.store';
 import { Button } from "../../../shared/ui/button/button";
+import { ReviewSection } from "../../review-section/review-section";
 
 @Component({
   selector: 'app-product-detail',
-  imports: [Spinner, Card, CurrencyPipe, Button],
+  imports: [Spinner, Card, CurrencyPipe, Button, ReviewSection],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.scss',
 })
