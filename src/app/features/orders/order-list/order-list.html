@@ -1,1 +1,32 @@
-<p>order-list works!</p>
+<div class="orders-page">
+    <h1>Your orders</h1>
+
+    @if (ordersResource.isLoading()) {
+        <div class="state-message"><app-spinner /></div>
+    } @else if (ordersResource.value()?.content?.length === 0) {
+        <app-card [padded]="true" class="empty-state">
+            <p>You haven't placed any orders yet.</p>
+        </app-card>
+    } @else {
+        <div class="order-list">
+            @for (order of ordersResource.value()?.content; track order.id) {
+            <a [routerLink]="['/orders', order.id]" class="order-link">
+                <app-card [interactive]="true" [padded]="true" class="order-row">
+                    <div class="order-main">
+                        <span class="order-id">Order #{{ order.id }}</span>
+                        <span class="order-date">{{ order.createdDate | date: 'medium' }}</span>
+                    </div>
+                    <app-order-status-badge [status]="order.status" />
+                    <span class="order-total">{{ order.totalAmount | currency }}</span>
+                </app-card>
+            </a>
+            }
+        </div>
+
+        <div class="pagination">
+            <button [disabled]="page() === 0" (click)="page.set(page() - 1)">← Previous</button>
+            <span>Page {{ page() + 1 }} of {{ totalPages() }}</span>
+            <button [disabled]="ordersResource.value()?.last" (click)="page.set(page() + 1)">Next →</button>
+        </div>
+    }
+</div>

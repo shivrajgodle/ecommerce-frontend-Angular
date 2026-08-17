@@ -1,0 +1,77 @@
+.orders-page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-6);
+}
+
+.empty-state {
+    text-align: center;
+    padding: var(--space-16);
+    color: var(--color-ink-soft);
+}
+
+.order-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.order-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.order-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.order-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.order-id {
+    font-weight: 600;
+}
+
+.order-date {
+    font-size: 0.8125rem;
+    color: var(--color-ink-soft);
+}
+
+.order-total {
+    font-weight: 700;
+    min-width: 70px;
+    text-align: right;
+}
+
+.state-message {
+    display: flex;
+    justify-content: center;
+    padding: var(--space-16) 0;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+}
+
+.pagination button {
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    cursor: pointer;
+
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+}
