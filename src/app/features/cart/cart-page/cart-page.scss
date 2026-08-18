@@ -26,13 +26,6 @@
     gap: var(--space-4);
 }
 
-.cart-item {
-    display: grid;
-    grid-template-columns: 1fr auto auto auto;
-    align-items: center;
-    gap: var(--space-4);
-}
-
 .item-info h3 {
     margin: 0 0 var(--space-1) 0;
     font-size: 1rem;
@@ -98,4 +91,12 @@
     justify-content: space-between;
     font-size: 1.0625rem;
     font-weight: 700;
+}
+
+
+.cart-item-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: var(--space-4);
 }

@@ -29,5 +29,5 @@ export class Input {
    */
   value = model('');
 
-  inputId = () => `input-${Math.random().toString(36).slice(2, 9)}`;
+  inputId = `input-${Math.random().toString(36).slice(2, 9)}`;
 }

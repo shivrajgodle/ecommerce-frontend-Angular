@@ -84,11 +84,12 @@ import { AuthStore } from '../../../core/services/auth-store';
       color: var(--color-ink);
       font-size: 0.9375rem;
       font-weight: 500;
+      margin-right: 20px;
     }
     .cart-badge {
       position: absolute;
       top: -8px;
-      right: -14px;
+      right: -18px;
       background: var(--color-accent);
       color: white;
       font-size: 0.6875rem;

@@ -19,16 +19,18 @@
     }
 
     @if (showForm()) {
-        <app-card [padded]="true" class="review-form">
-            <label>Your rating</label>
-            <app-star-rating [(value)]="formRating" [readonly]="false" />
-            <label>Comment (optional)</label>
-            <textarea [value]="formComment()" (input)="formComment.set($any($event.target).value)" rows="3"></textarea>
-            <div class="form-actions">
-                <app-button size="sm" [loading]="submitting()" (clicked)="submitReview()">
-                    {{ ownReview() ? 'Update review' : 'Post review' }}
-                </app-button>
-                <app-button size="sm" variant="ghost" (clicked)="showForm.set(false)">Cancel</app-button>
+        <app-card [padded]="true">
+            <div class="review-form-body">
+                <label>Your rating</label>
+                <app-star-rating [(value)]="formRating" [readonly]="false" />
+                <label>Comment (optional)</label>
+                <textarea [value]="formComment()" (input)="formComment.set($any($event.target).value)" rows="3"></textarea>
+                <div class="form-actions">
+                    <app-button size="sm" [loading]="submitting()" (clicked)="submitReview()">
+                        {{ ownReview() ? 'Update review' : 'Post review' }}
+                    </app-button>
+                    <app-button size="sm" variant="ghost" (clicked)="showForm.set(false)">Cancel</app-button>
+                </div>
             </div>
         </app-card>
     }

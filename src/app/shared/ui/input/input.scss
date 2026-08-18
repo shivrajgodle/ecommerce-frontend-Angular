@@ -32,6 +32,18 @@ input {
     &.has-error {
         border-color: var(--color-danger);
     }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 1000px var(--color-surface) inset;
+        box-shadow: 0 0 0 1000px var(--color-surface) inset;
+        -webkit-text-fill-color: var(--color-ink);
+        caret-color: var(--color-ink);
+        border-color: var(--color-border);
+        transition: background-color 5000s ease-in-out 0s, border-color 0.15s ease;
+    }
 }
 
 .error-text {

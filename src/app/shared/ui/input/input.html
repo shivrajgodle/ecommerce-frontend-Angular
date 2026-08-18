@@ -1,13 +1,13 @@
-<div class="fied">
+<div class="field">
     @if (label()) {
-    <label [for]="inputId()">
+    <label [for]="inputId">
         {{label()}}
         @if(required()) {
         <span class="req">*</span>
         }
     </label>
     }
-    <input [id]="inputId()" [type]="type()" [placeholder]="placeholder()" [value]="value()"
+    <input [id]="inputId" [type]="type()" [placeholder]="placeholder()" [value]="value()"
         [class.has-error]="errorMessage()" (input)="value.set($any($event.target).value)" />
     
     @if(errorMessage()) {

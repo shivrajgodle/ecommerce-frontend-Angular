@@ -57,12 +57,6 @@ select {
     color: inherit;
 }
 
-.product-card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    height: 100%;
-}
 
 .category-badge {
     align-self: flex-start;
@@ -76,10 +70,6 @@ select {
     border-radius: var(--radius-sm);
 }
 
-.product-card h3 {
-    font-size: 1.0625rem;
-    margin: 0;
-}
 
 .price {
     font-weight: 600;
@@ -125,6 +115,14 @@ select {
     }
 }
 
-.product-card app-button {
-    margin-top: auto;
+
+.product-card-body { 
+    display: flex; 
+    flex-direction: column; 
+    gap: var(--space-2); 
+    height: 100%; 
+}
+
+.product-card-body app-button { 
+    margin-top: auto; 
 }

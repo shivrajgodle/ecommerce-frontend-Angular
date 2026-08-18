@@ -4,7 +4,8 @@
 <div class="state-message error">This product couldn't be found.</div>
 } @else if (product(); as p) {
 <div class="detail-page">
-    <app-card [padded]="true" class="detail-card">
+    <app-card [padded]="true">
+        <div class="detail-card-body">
         <span class="category-badge">{{ p.categoryName }}</span>
         <h1>{{ p.name }}</h1>
         <p class="price">{{ p.price | currency }}</p>
@@ -31,6 +32,7 @@
             <app-button [loading]="adding()" (clicked)="addToCart(p.id)">Add to cart</app-button>
         </div>
         }
+        </div>
     </app-card>
     <app-review-section [productId]="p.id" />
 </div>

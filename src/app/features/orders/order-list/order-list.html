@@ -11,13 +11,15 @@
         <div class="order-list">
             @for (order of ordersResource.value()?.content; track order.id) {
             <a [routerLink]="['/orders', order.id]" class="order-link">
-                <app-card [interactive]="true" [padded]="true" class="order-row">
-                    <div class="order-main">
-                        <span class="order-id">Order #{{ order.id }}</span>
-                        <span class="order-date">{{ order.createdDate | date: 'medium' }}</span>
+                <app-card [interactive]="true" [padded]="true">
+                    <div class="order-row">
+                        <div class="order-main">
+                            <span class="order-id">Order #{{ order.id }}</span>
+                            <span class="order-date">{{ order.createdDate | date: 'medium' }}</span>
+                        </div>
+                        <app-order-status-badge [status]="order.status" />
+                        <span class="order-total">{{ order.totalAmount | currency }}</span>
                     </div>
-                    <app-order-status-badge [status]="order.status" />
-                    <span class="order-total">{{ order.totalAmount | currency }}</span>
                 </app-card>
             </a>
             }
