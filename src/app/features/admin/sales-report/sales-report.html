@@ -1,0 +1,54 @@
+<div class="report-page">
+    <h1>Sales Report</h1>
+
+    <app-card [padded]="true" class="filters-card">
+        <div class="date-row">
+            <div class="field-group">
+                <label>Start date</label>
+                <input type="date" [value]="startDate()" (change)="startDate.set($any($event.target).value)" />
+            </div>
+            <div class="field-group">
+                <label>End date</label>
+                <input type="date" [value]="endDate()" (change)="endDate.set($any($event.target).value)" />
+            </div>
+            <app-button [loading]="loading()" (clicked)="generate()">Generate Report</app-button>
+        </div>
+    </app-card>
+
+    @if (report(); as r) {
+    <app-card [padded]="true" class="summary-card">
+        <div class="headline-row">
+            <div class="stat">
+                <span class="stat-value">{{ r.totalOrders }}</span>
+                <span class="stat-label">Total Orders</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">{{ r.totalRevenue | currency }}</span>
+                <span class="stat-label">Revenue (Confirmed Only)</span>
+            </div>
+            <app-button variant="secondary" [loading]="exporting()" (clicked)="exportReport()">
+                Export to Excel
+            </app-button>
+        </div>
+
+        <table class="breakdown-table">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Count</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (stat of r.statusBreakdown; track stat.status) {
+                <tr>
+                    <td><app-order-status-badge [status]="stat.status" /></td>
+                    <td>{{ stat.count }}</td>
+                    <td>{{ stat.totalAmount | currency }}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </app-card>
+    }
+</div>

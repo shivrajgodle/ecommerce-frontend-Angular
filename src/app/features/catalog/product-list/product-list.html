@@ -30,6 +30,15 @@
                     (change)="onMaxPriceChange($any($event.target).value)" />
             </div>
         </div>
+        
+        @if (authStore.isAdmin()) {
+          <div class="admin-actions">
+            <app-button size="sm" variant="secondary" [loading]="exporting()" (clicked)="exportCatalog()">
+              Export to Excel
+            </app-button>
+            <a routerLink="/admin/bulk-upload"><app-button size="sm" variant="ghost">Bulk Upload</app-button></a>
+          </div>
+        }
     </aside>
 
     <main class="results">

@@ -14,8 +14,11 @@ import { AuthStore } from '../../../core/services/auth-store';
 
         <nav class="main-nav">
           <a routerLink="/products" routerLinkActive="active">Shop</a>
-          @if (authStore.isAuthenticated()) {
+          @if(authStore.isAuthenticated()) {
             <a routerLink="/orders" routerLinkActive="active">Orders</a>
+          }
+          @if(authStore.isAdmin()) {
+            <a routerLink="/admin/reports" routerLinkActive="active">Reports</a>
           }
         </nav>
 

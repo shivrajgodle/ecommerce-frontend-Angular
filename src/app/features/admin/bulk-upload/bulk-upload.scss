@@ -1,0 +1,102 @@
+.upload-page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-6);
+}
+
+.hint {
+    color: var(--color-ink-soft);
+    font-size: 0.875rem;
+    margin-bottom: var(--space-6);
+}
+
+.drop-zone {
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-12);
+    text-align: center;
+    margin-bottom: var(--space-4);
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+
+    &.dragging {
+        border-color: var(--color-accent);
+        background: var(--color-accent-soft);
+    }
+}
+
+.file-name {
+    font-weight: 600;
+    margin: 0;
+}
+
+.file-size {
+    color: var(--color-ink-soft);
+    font-size: 0.8125rem;
+    margin: var(--space-1) 0 0 0;
+}
+
+.file-input-label {
+    display: inline-block;
+    margin-top: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.875rem;
+
+    &:hover {
+        border-color: var(--color-accent);
+    }
+}
+
+.result-card {
+    margin-top: var(--space-6);
+}
+
+.summary-row {
+    display: flex;
+    gap: var(--space-8);
+    margin-bottom: var(--space-6);
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.stat.success .stat-value {
+    color: var(--color-success);
+}
+
+.stat.danger .stat-value {
+    color: var(--color-danger);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--color-ink-soft);
+    text-transform: uppercase;
+}
+
+.error-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.error-table th,
+.error-table td {
+    text-align: left;
+    padding: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.error-table th {
+    color: var(--color-ink-soft);
+    font-weight: 600;
+}

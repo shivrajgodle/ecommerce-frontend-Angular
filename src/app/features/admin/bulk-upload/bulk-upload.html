@@ -1,0 +1,61 @@
+<div class="upload-page">
+    <h1>Bulk Product Upload</h1>
+    <p class="hint">
+        Upload an .xlsx file with columns, in order: SKU, Name, Description,
+        Price, Stock, Category, Tags (comma-separated). Rows with an existing
+        SKU are updated; new SKUs are created.
+    </p>
+
+    <app-card [padded]="true">
+        <div class="drop-zone" [class.dragging]="isDragging()" (dragover)="onDragOver($event)"
+            (dragleave)="isDragging.set(false)" (drop)="onDrop($event)">
+            @if (selectedFile(); as file) {
+                <p class="file-name">📄 {{ file.name }}</p>
+                <p class="file-size">{{ (file.size / 1024).toFixed(1) }} KB</p>
+            } @else {
+                <p>Drag and drop your .xlsx file here, or</p>
+                <label class="file-input-label">
+                    Choose file
+                    <input type="file" accept=".xlsx" (change)="onFileSelected($event)" hidden />
+                </label>
+            }
+        </div>
+
+        <app-button [disabled]="!selectedFile()" [loading]="uploading()" (clicked)="upload()">Upload</app-button>
+    </app-card>
+
+    @if (result(); as r) {
+    <app-card [padded]="true" class="result-card">
+        <h2>Upload Results</h2>
+        <div class="summary-row">
+            <div class="stat"><span class="stat-value">{{ r.totalRows }}</span><span class="stat-label">Total
+                    Rows</span></div>
+            <div class="stat success"><span class="stat-value">{{ r.successCount }}</span><span
+                    class="stat-label">Succeeded</span></div>
+            <div class="stat danger"><span class="stat-value">{{ r.failureCount }}</span><span
+                    class="stat-label">Failed</span></div>
+        </div>
+
+        @if (r.errors.length > 0) {
+        <table class="error-table">
+            <thead>
+                <tr>
+                    <th>Row</th>
+                    <th>SKU</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (err of r.errors; track err.rowNumber) {
+                <tr>
+                    <td>{{ err.rowNumber }}</td>
+                    <td>{{ err.sku ?? '—' }}</td>
+                    <td>{{ err.reason }}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        }
+    </app-card>
+    }
+</div>

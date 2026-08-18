@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { adminGuard } from './core/guards/admin.guard';
 
 /**
  * Every route below is EMPTY for now — a placeholder object with just
@@ -10,16 +11,67 @@ import { authGuard } from './core/guards/auth.guard';
  */
 export const routes: Routes = [
   { path: '', redirectTo: 'products', pathMatch: 'full' },
-  { path: 'login', title: 'Sign in', loadComponent: () => import('./features/auth/login/login').then(m => m.Login) },
-  { path: 'register', title: 'Create account', loadComponent: () => import('./features/auth/register/register').then(m => m.Register) },
-  { path: 'products', title: 'Shop', loadComponent: () => import('./features/catalog/product-list/product-list').then(m => m.ProductList) },
-  { path: 'products/:id', title: 'Product', loadComponent: () => import('./features/catalog/product-detail/product-detail').then(m => m.ProductDetail) },
-  { path: 'cart', title: 'Cart', canActivate:[authGuard], loadComponent: () => import('./features/cart/cart-page/cart-page').then(m => m.CartPage) },
-  { path: 'checkout', title: 'Checkout', canActivate:[authGuard], loadComponent: () => import('./features/checkout/checkout-page/checkout-page').then(m => m.CheckoutPage) },
-  { path: 'orders', title: 'Your orders', canActivate:[authGuard], loadComponent: () => import('./features/orders/order-list/order-list').then(m => m.OrderList) },
-  { path: 'orders/:id', title: 'Order details',canActivate:[authGuard], loadComponent: () => import('./features/orders/order-detail/order-detail').then(m => m.OrderDetail) },
+  {
+    path: 'login',
+    title: 'Sign in',
+    loadComponent: () => import('./features/auth/login/login').then((m) => m.Login),
+  },
+  {
+    path: 'register',
+    title: 'Create account',
+    loadComponent: () => import('./features/auth/register/register').then((m) => m.Register),
+  },
+  {
+    path: 'products',
+    title: 'Shop',
+    loadComponent: () =>
+      import('./features/catalog/product-list/product-list').then((m) => m.ProductList),
+  },
+  {
+    path: 'products/:id',
+    title: 'Product',
+    loadComponent: () =>
+      import('./features/catalog/product-detail/product-detail').then((m) => m.ProductDetail),
+  },
+  {
+    path: 'cart',
+    title: 'Cart',
+    canActivate: [authGuard],
+    loadComponent: () => import('./features/cart/cart-page/cart-page').then((m) => m.CartPage),
+  },
+  {
+    path: 'checkout',
+    title: 'Checkout',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/checkout/checkout-page/checkout-page').then((m) => m.CheckoutPage),
+  },
+  {
+    path: 'orders',
+    title: 'Your orders',
+    canActivate: [authGuard],
+    loadComponent: () => import('./features/orders/order-list/order-list').then((m) => m.OrderList),
+  },
+  {
+    path: 'orders/:id',
+    title: 'Order details',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/orders/order-detail/order-detail').then((m) => m.OrderDetail),
+  },
+  {
+    path: 'admin/bulk-upload',
+    title: 'Bulk Upload',
+    canActivate: [authGuard, adminGuard],
+    loadComponent: () =>
+      import('./features/admin/bulk-upload/bulk-upload').then((m) => m.BulkUpload),
+  },
+  {
+    path: 'admin/reports',
+    title: 'Sales Report',
+    canActivate: [authGuard, adminGuard],
+    loadComponent: () =>
+      import('./features/admin/sales-report/sales-report').then((m) => m.SalesReport),
+  },
   { path: '**', redirectTo: 'products' },
 ];
-
-
-

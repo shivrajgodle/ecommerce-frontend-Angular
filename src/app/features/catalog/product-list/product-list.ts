@@ -10,6 +10,9 @@ import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { Button } from '../../../shared/ui/button/button';
 import { CartStore } from '../../../core/services/cart.store';
+import { AuthStore } from '../../../core/services/auth-store';
+import { CatalogAdminService } from '../../../core/services/catalog-admin.service';
+import { FileDownloadService } from '../../../core/services/file-download.service';
 
 const PAGE_SIZE = 12;
 
@@ -29,6 +32,10 @@ export class ProductList {
 
   private cartStore = inject(CartStore);
   protected addingProductId = signal<number | null>(null);
+  protected authStore = inject(AuthStore);
+  private catalogAdminService = inject(CatalogAdminService);
+  private fileDownloadService = inject(FileDownloadService);
+  protected exporting = signal(false);
 
   // The RAW text box value, updated on every keystroke.
   protected keywordInput = signal('');
@@ -123,6 +130,16 @@ export class ProductList {
       await this.cartStore.addItem(productId,1);
     } finally{
       this.addingProductId.set(null);
+    }
+  }
+
+   async exportCatalog() {
+    this.exporting.set(true);
+    try {
+      const blob = await this.catalogAdminService.exportProducts();
+      this.fileDownloadService.triggerDownload(blob, 'products.xlsx');
+    } finally {
+      this.exporting.set(false);
     }
   }
 }
